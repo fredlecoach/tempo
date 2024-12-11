@@ -19,7 +19,7 @@
 
 .nav-link:hover {
   background-color: #458d93; /* Effet survol pour les liens */
-  padding-left: 15px;
+  padding:  15px;
   color: #fff;
 }
 
@@ -31,4 +31,8 @@
 .bouton{
   background-color: #e9cbb1;
   color: #083731;
+}
+.bouton:hover{
+  background-color: #083731;
+  color: #fff;
 }
