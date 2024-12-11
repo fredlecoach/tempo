@@ -1,0 +1,34 @@
+.navbar {
+  background-color: #083731;
+  color: #fff;
+  position: fixed; /* Fixe le menu sur le côté gauche */
+  top: 400;
+  left: 0; /* Aligne le menu sur le bord gauche de l'écran */
+  height: 100vh; /* Hauteur 100% de la fenêtre */
+  width: 300px; /* Largeur du menu (ajustez selon vos besoins) */
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Organise les éléments du menu verticalement */
+}
+
+.nav-link {
+  color: #fff;
+  padding: 10px 0; /* Espacement entre les liens */
+  text-decoration: none; /* Enlever la décoration de lien */
+}
+
+.nav-link:hover {
+  background-color: #458d93; /* Effet survol pour les liens */
+  padding-left: 15px;
+  color: #fff;
+}
+
+.navbar-brand {
+  /* text-align: center; */
+  margin-bottom: 30px; /* Espacement sous le logo */
+}
+
+.bouton{
+  background-color: #e9cbb1;
+  color: #083731;
+}
