@@ -16,8 +16,8 @@
       <h1 class="text-center mb-5"><i class="bi bi-cart-fill"></i> Liste de courses à faire</h1>
       <div>
         <form @submit.prevent="addItem">
-          <input class="" type="text" v-model="newItem" placeholder="Nom de l'article" />
-          <button type="submit" class="btn bouton fw-bold">Ajouter un article</button>
+          <input style="width:300px" type="text" v-model="newItem" placeholder="Nom de l'article" />
+          <button type="submit" class="btn bouton fw-bold mx-1">Ajouter un article</button>
         </form>
       </div>
       <hr>
