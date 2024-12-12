@@ -1,7 +1,11 @@
 <template>
-  <!-- barre latérale de navigation -->
+  <!-- Bouton pour basculer le menu (affiché uniquement sur les petits écrans) -->
+  <button class="btn btn-primary d-lg-none" @click="toggleMenu">☰ Menu</button>
+
+  <!-- Structure principale avec la barre latérale et le contenu -->
   <div class="d-flex">
-    <div class="navbar">
+    <!-- Barre latérale de navigation -->
+    <div :class="['navbar', { hidden: !isMenuOpen }]">
       <span class="navbar-brand">
         <img src="./styles/images/logoTempo.png" style="width: 100%; max-width: 300px;" />
       </span>
@@ -49,6 +53,12 @@ const courses = ref([
 // Nouvel article
 const newItem = ref("");
 
+// État pour afficher ou masquer le menu
+const isMenuOpen = ref(true);
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
+
 // Ajouter un article
 const addItem = () => {
   if (newItem.value.trim() !== "") {
@@ -72,10 +82,9 @@ const diminuer = (index) => {
   }
 };
 
-const deleteItem = (index)=>{
-  courses.value.splice(index, 1)
-}
-
+const deleteItem = (index) => {
+  courses.value.splice(index, 1);
+};
 </script>
 
 <style>
@@ -90,6 +99,11 @@ const deleteItem = (index)=>{
   padding: 20px;
   display: flex;
   flex-direction: column; /* Organise les éléments du menu verticalement */
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar.hidden {
+  transform: translateX(-100%); /* Cache le menu */
 }
 
 .nav-link {
@@ -119,17 +133,21 @@ const deleteItem = (index)=>{
 }
 
 .content-container {
-  margin-left: 300px; /* Espace pour le menu latéral */
+  margin-left: 20%; /* Espace pour le menu latéral */
   padding: 20px; /* Espacement interne */
   min-height: 100vh; /* Assure une hauteur de la page complète */
 }
 
-/* responsive media smartphone  et tablettes 768px */
-@media (max-width: 480px){
-  .navbar{
-    min-width: 25%;
-    font-size:small
+/* Responsive pour les petits écrans */
+@media (max-width: 480px) {
+  .navbar {
+    width: 100%; /* Utilise toute la largeur de l'écran */
+    height: auto; /* Ajuste la hauteur */
+  }
+
+  .content-container {
+    margin-left: 0; /* Pas de marge sur les petits écrans */
+    padding-top: 200px; /* Laisse de l'espace pour la barre latérale si elle est en haut */
   }
 }
-
 </style>
