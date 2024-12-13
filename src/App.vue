@@ -2,7 +2,7 @@
   <div class="d-flex">
     <!-- Barre latérale de navigation -->
     <nav class="navbar navbar-dark  flex-column p-3">
-      <a class="navbar-brand mb-3 d-block" href="#">
+      <a class="navbar-brand mt-5 mb-3 d-block" href="#">
         <img src="./styles/images/logoTempo.png" class="logo" alt="Logo">
       </a>
 
@@ -56,13 +56,24 @@
         </div>
         <hr>
         <ul class="list-unstyled">
-          <li v-for="(item, index) in courses" :key="index" class="fw-bold">
-            {{ item.name.toUpperCase() }} x{{ item.quantity }}
-            <button class="btn btn-success my-2" @click="augmenter(index)"><i class="bi bi-bag-plus"></i></button>
-            <button class="btn btn-warning mx-1 my-2" @click="diminuer(index)"><i class="bi bi-bag-dash-fill"></i></button>
-            <button class="btn btn-danger" @click="deleteItem(index)">Supprimer</button>
-          </li>
-        </ul>
+  <li v-for="(item, index) in courses" :key="index" class="fw-bold mb-3">
+    <div>
+      {{ item.name.toUpperCase() }} x{{ item.quantity }}
+    </div>
+    <div class="btn-group-vertical mt-2">
+      <button class="btn btn-success" @click="augmenter(index)">
+        <i class="bi bi-bag-plus"></i> Ajouter
+      </button>
+      <button class="btn btn-warning mt-1" @click="diminuer(index)">
+        <i class="bi bi-bag-dash-fill"></i> Réduire
+      </button>
+      <button class="btn btn-danger mt-1" @click="deleteItem(index)">
+        <i class="bi bi-trash"></i> Supprimer
+      </button>
+    </div>
+  </li>
+</ul>
+
       </div>
     </main>
   </div>
@@ -74,6 +85,16 @@ import { ref } from "vue";
 const courses = ref([
   { name: "Bananes", quantity: 1 },
   { name: "Haricots", quantity: 1 },
+  { name: "blancs de poulets", quantity : 1},
+  { name: "cacao", quantity : 1},
+  { name: "lait d'avoine", quantity : 1},
+  { name: "pâtes", quantity : 1},
+  { name: "beurre", quantity : 1},
+  { name: "farine", quantity : 1},
+  { name: "dentifrice weleda", quantity : 1},
+  { name: "lessive", quantity : 1},
+  { name: "fromage râpé", quantity : 1},
+  { name: "ricorée", quantity : 1},
 ]);
 
 const newItem = ref("");
@@ -132,6 +153,24 @@ const deleteItem = (index) => {
   margin-left: 8px
 }
 
+.btn-group-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.btn-group-vertical .btn {
+  width: 50%; /* Les boutons prendront toute la largeur de leur parent */
+}
+
+.list-unstyled li {
+  border-bottom: 1px solid #ccc; /* Ligne de séparation entre les articles */
+  padding-bottom: 10px;
+}
+
+.list-unstyled li:last-child {
+  border-bottom: none; /* Pas de ligne pour le dernier élément */
+}
 
 
 @media (min-width: 768px) {
@@ -154,7 +193,7 @@ const deleteItem = (index) => {
 @media (max-width: 500px) {
   .navbar-brand .logo {
     width: 170%;
-    margin-left: -10px /* Agrandir le logo pour les petits écrans */
+    margin-left: -5px /* Agrandir le logo pour les petits écrans */
   }
   main{
     width: 80%;
@@ -164,7 +203,8 @@ const deleteItem = (index) => {
 
 @media (max-width: 3000px){
   .navbar-toggler{
-  margin-bottom: 600px;
+  position: fixed;
+  top: 10px;
   align-self: center;
 }
 }
