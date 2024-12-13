@@ -1,30 +1,57 @@
 <template>
-  <!-- Bouton pour basculer le menu (affiché uniquement sur les petits écrans) -->
-  <button class="btn btn-primary d-lg-none" @click="toggleMenu">☰ Menu</button>
-
-  <!-- Structure principale avec la barre latérale et le contenu -->
   <div class="d-flex">
     <!-- Barre latérale de navigation -->
-    <div :class="['navbar', { hidden: !isMenuOpen }]">
-      <span class="navbar-brand">
-        <img src="./styles/images/logoTempo.png" style="width: 100%; max-width: 300px;" />
-      </span>
-      <ul class="navbar-nav list-unstyled">
-        <li class="nav-item"><a class="nav-link" href="#">Courses à faire</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Repas de la semaine</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Planning</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Tâches administratives</a></li>
-      </ul>
-    </div>
+    <nav class="navbar navbar-dark  flex-column p-3">
+      <a class="navbar-brand mb-3 d-block" href="#">
+        <img src="./styles/images/logoTempo.png" class="logo" alt="Logo">
+      </a>
 
-    <!-- Contenu principal centré -->
-    <div class="content-container flex-grow-1 d-flex justify-content-center align-items-start">
+      <!-- Bouton de toggler pour les petits écrans (d-xl-none: masque le burger pour les grands écrans) -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Offcanvas Menu -->
+      <div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Courses à faire</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Repas de la semaine</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Planning</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Tâches administratives</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="flex-grow-1 d-flex justify-content-center align-items-start">
       <div class="container">
         <h1 class="text-center mb-5"><i class="bi bi-cart-fill"></i> Liste de courses à faire</h1>
         <div>
-          <form @submit.prevent="addItem">
+          <form @submit.prevent="addItem" class="d-flex justify-content-center">
             <input style="width:300px" type="text" v-model="newItem" placeholder="Nom de l'article" />
-            <button type="submit" class="btn bouton fw-bold mx-1">Ajouter un article</button>
+            
+             <button type="submit" class="btn bouton fw-bold mx-1 ">Ajouter un article</button>
+          
           </form>
         </div>
         <hr>
@@ -37,47 +64,35 @@
           </li>
         </ul>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 
-// Liste réactive des articles avec quantités
 const courses = ref([
   { name: "Bananes", quantity: 1 },
   { name: "Haricots", quantity: 1 },
 ]);
 
-// Nouvel article
 const newItem = ref("");
 
-// État pour afficher ou masquer le menu
-const isMenuOpen = ref(true);
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
-
-// Ajouter un article
 const addItem = () => {
   if (newItem.value.trim() !== "") {
     courses.value.push({ name: newItem.value, quantity: 1 });
-    newItem.value = ""; // Réinitialiser le champ de saisie
+    newItem.value = "";
   }
 };
 
-// Augmenter la quantité d'un produit
 const augmenter = (index) => {
   courses.value[index].quantity++;
 };
 
-// Diminuer la quantité d'un produit
 const diminuer = (index) => {
   if (courses.value[index].quantity > 1) {
     courses.value[index].quantity--;
   } else {
-    // Supprimer l'article si la quantité est 0
     courses.value.splice(index, 1);
   }
 };
@@ -89,37 +104,17 @@ const deleteItem = (index) => {
 
 <style>
 .navbar {
+  min-height: 100vh;
   background-color: #083731;
+}
+
+.navbar-nav .nav-link {
   color: #fff;
-  position: fixed; /* Fixe le menu sur le côté gauche */
-  top: 0;
-  left: 0; /* Aligne le menu sur le bord gauche de l'écran */
-  height: 100vh; /* Hauteur 100% de la fenêtre */
-  width: 20%; /* Largeur du menu (ajustez selon vos besoins) */
-  padding: 20px;
-  display: flex;
-  flex-direction: column; /* Organise les éléments du menu verticalement */
-  transition: transform 0.3s ease-in-out;
+  padding: 10px 20px;
 }
 
-.navbar.hidden {
-  transform: translateX(-100%); /* Cache le menu */
-}
-
-.nav-link {
-  color: #fff;
-  padding: 10px 0; /* Espacement entre les liens */
-  text-decoration: none; /* Enlever la décoration de lien */
-}
-
-.nav-link:hover {
-  background-color: #458d93; /* Effet survol pour les liens */
-  padding: 15px;
-  color: #fff;
-}
-
-.navbar-brand {
-  margin-bottom: 30px; /* Espacement sous le logo */
+.navbar-nav .nav-link:hover {
+  background-color: #62808b;
 }
 
 .bouton {
@@ -132,22 +127,45 @@ const deleteItem = (index) => {
   color: #fff;
 }
 
-.content-container {
-  margin-left: 20%; /* Espace pour le menu latéral */
-  padding: 20px; /* Espacement interne */
-  min-height: 100vh; /* Assure une hauteur de la page complète */
+.navbar-brand .logo{
+  width: 100%;
+  margin-left: 8px
 }
 
-/* Responsive pour les petits écrans */
-@media (max-width: 480px) {
+
+
+@media (min-width: 768px) {
   .navbar {
-    width: 100%; /* Utilise toute la largeur de l'écran */
-    height: auto; /* Ajuste la hauteur */
+    width: 20%;
   }
 
   .content-container {
-    margin-left: 0; /* Pas de marge sur les petits écrans */
-    padding-top: 200px; /* Laisse de l'espace pour la barre latérale si elle est en haut */
+    margin-left: 25%;
   }
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    position: static;
+    width: 30%;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-brand .logo {
+    width: 170%;
+    margin-left: -10px /* Agrandir le logo pour les petits écrans */
+  }
+  main{
+    width: 80%;
+  }
+
+}
+
+@media (max-width: 3000px){
+  .navbar-toggler{
+  margin-bottom: 600px;
+  align-self: center;
+}
 }
 </style>
