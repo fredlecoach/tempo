@@ -83,18 +83,18 @@
 import { ref } from "vue";
 
 const courses = ref([
-  { name: "Bananes", quantity: 1 },
-  { name: "Haricots", quantity: 1 },
-  { name: "blancs de poulets", quantity : 1},
-  { name: "cacao", quantity : 1},
-  { name: "lait d'avoine", quantity : 1},
-  { name: "pâtes", quantity : 1},
-  { name: "beurre", quantity : 1},
-  { name: "farine", quantity : 1},
-  { name: "dentifrice weleda", quantity : 1},
-  { name: "lessive", quantity : 1},
-  { name: "fromage râpé", quantity : 1},
-  { name: "ricorée", quantity : 1},
+  // { name: "Bananes", quantity: 1 },
+  // { name: "Haricots", quantity: 1 },
+  // { name: "blancs de poulets", quantity : 1},
+  // { name: "cacao", quantity : 1},
+  // { name: "lait d'avoine", quantity : 1},
+  // { name: "pâtes", quantity : 1},
+  // { name: "beurre", quantity : 1},
+  // { name: "farine", quantity : 1},
+  // { name: "dentifrice weleda", quantity : 1},
+  // { name: "lessive", quantity : 1},
+  // { name: "fromage râpé", quantity : 1},
+  // { name: "ricorée", quantity : 1},
 ]);
 
 const newItem = ref("");
